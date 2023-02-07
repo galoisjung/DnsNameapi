@@ -22,7 +22,7 @@ class ApiDF:
 
     def recordlist(self, zone):
         query = {'per_page': '5000'}  # 버그의 원인이 될지도?
-        zone_row_result = requests.get(config.CF_RECORD.format(self.zoneInfo[zone]), headers=config.CF_HEADER,
+        zone_row_result = requests.get(config.CF_RECORD.format(self.zoneInfo[zone], ""), headers=config.CF_HEADER,
                                        params=query)
         zone_row_list = json.loads(zone_row_result.text)
 
@@ -43,9 +43,17 @@ class ApiDF:
             'content': record.content,
             'ttl': record.ttl
         }
-
-        print(data)
-        res = requests.post(config.CF_RECORD.format(self.zoneInfo[zone]), headers=config.CF_HEADER,
+        res = requests.post(config.CF_RECORD.format(self.zoneInfo[zone], ""), headers=config.CF_HEADER,
                             data=json.dumps(data))
+        print(res.text)
 
+    def updaterecord(self, zone, record, id):
+        data = {
+            'type': record.type,
+            'name': record.name,
+            'content': record.content,
+            'ttl': record.ttl
+        }
+        res = requests.put(config.CF_RECORD.format(self.zoneInfo[zone], id), headers=config.CF_HEADER,
+                             data=json.dumps(data))
         print(res.text)
