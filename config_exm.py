@@ -1,6 +1,6 @@
 NHN_APIKEY = "{your_apikey}"
-NHN_ZONE = "https://dnsplus.api.nhncloudservice.com/dnsplus/v1.0/appkeys/{apikey}/zones"
-NHN_RECORD = "https://dnsplus.api.nhncloudservice.com/dnsplus/v1.0/appkeys/{apikey}/zones/{0}/recordsets"
+NHN_ZONE = "https://dnsplus.api.nhncloudservice.com/dnsplus/v1.0/appkeys/{0}/zones".format(NHN_APIKEY)
+NHN_RECORD = "https://dnsplus.api.nhncloudservice.com/dnsplus/v1.0/appkeys/{0}/zones/{1}/recordsets"
 
 HEADER = {'Content-Type': 'application/json'}
 

@@ -41,20 +41,12 @@ while len(nhn_hash_dict.keys()) != 0:
             id = df_hash_dict[temp[0]][1]
             cf.updaterecord(cf_zone_name, nhn_list[cnt], id)
 
+        df_hash_dict.pop(temp[0], None)
+
     cnt += 1
 
-#
-# while len(nhn_hash_dict.keys()) != 0:
-#     temp = nhn_hash_dict.popitem()
-#
-#     df_hash_list = [i[0] for i in df_hash_dict.values()]
-#
-#     if temp[1] not in df_hash_list:
-#         if temp[0] not in df_hash_dict.keys():
-#             cf.createrecord('t3q.ai', nhn_list[cnt])
-#         else:
-#             cf.updaterecord('t3q.ai', nhn_list[cnt])
-#     else:
-#         del df_hash_dict[temp[0]]
-#     cnt += 1
-#
+while len(df_hash_dict.keys()) != 0:
+    print("test")
+    temp = df_hash_dict.popitem()
+    print(temp[1][1])
+    cf.deleterecord(cf_zone_name, temp[1][1])

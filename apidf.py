@@ -28,12 +28,21 @@ class ApiDF:
 
         result = zone_row_list['result']
 
-        dto_list = [Record(type=i['type'],
-                           name=i['name'],
-                           content=i['content'],
-                           ttl=i['ttl'],
-                           id=i['id']
-                           ) for i in result]
+        dto_list = []
+
+        for i in result:
+            replace = i['name'].split(".")
+            zone_cnt = len(config.CF_ZONE_NAME.split("."))  # nhn은 .하나 더 붙어서 -1 제거해준다.
+
+            name = ".".join(replace[:-zone_cnt])
+            print(name)
+            if len(name) != 0:
+                dto_list.append(Record(type=i['type'],
+                                       name=name,
+                                       content=i['content'],
+                                       ttl=i['ttl'],
+                                       id=i['id']
+                                       ))
         return dto_list
 
     def createrecord(self, zone, record):
@@ -55,5 +64,10 @@ class ApiDF:
             'ttl': record.ttl
         }
         res = requests.put(config.CF_RECORD.format(self.zoneInfo[zone], id), headers=config.CF_HEADER,
-                             data=json.dumps(data))
+                           data=json.dumps(data))
+        print(res.text)
+
+    def deleterecord(self, zone, id):
+        res = requests.delete(config.CF_RECORD.format(self.zoneInfo[zone], id), headers=config.CF_HEADER)
+
         print(res.text)
