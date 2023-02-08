@@ -53,6 +53,12 @@ class ApiDF:
         }
         res = requests.post(config.CF_RECORD.format(self.zoneInfo[zone], ""), headers=config.CF_HEADER,
                             data=json.dumps(data))
+
+        res_dict = json.loads(res.text)
+
+        # if not res_dict['success'] and res_dict['errors'][0]['code'] == 81045:
+        #     raise Exception("Full of record")
+
         print(res.text)
 
     def updaterecord(self, zone, record, id):

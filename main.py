@@ -43,6 +43,7 @@ while len(nhn_hash_dict.keys()) != 0:
 
         df_hash_dict.pop(temp[0], None)
 
+
 while len(df_hash_dict.keys()) != 0:
-    temp = df_hash_dict.popitem()
-    cf.deleterecord(cf_zone_name, temp[1][1])
+     temp = df_hash_dict.popitem()
+     cf.deleterecord(cf_zone_name, temp[1][1])
