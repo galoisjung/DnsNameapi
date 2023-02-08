@@ -36,7 +36,6 @@ class ApiNHN:
             zone_cnt = len(config.NHN_ZONE_NAME.split("."))
 
             name = ".".join(replace[:-zone_cnt])
-            print(name)
             if len(name) != 0:
                 dto_list.append(Record(type=i['recordsetType'],
                                        name=name,

@@ -35,7 +35,6 @@ class ApiDF:
             zone_cnt = len(config.CF_ZONE_NAME.split("."))  # nhn은 .하나 더 붙어서 -1 제거해준다.
 
             name = ".".join(replace[:-zone_cnt])
-            print(name)
             if len(name) != 0:
                 dto_list.append(Record(type=i['type'],
                                        name=name,
