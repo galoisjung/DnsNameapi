@@ -1,4 +1,5 @@
-PATH=`pwd -P`
-export PATH=/bin:$PATH
-export OPENSSL_CONF=openssl.cnf
-python3 main.py
+pw=`dirname $0`
+export PATH=$pw:$PATH
+echo $PATH
+export OPENSSL_CONF=$pw/openssl.cnf
+python3 $pw/main.py 
