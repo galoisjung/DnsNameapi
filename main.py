@@ -1,14 +1,14 @@
 import hashlib
 
 import config
-from apidf import ApiDF
+from apicf import ApiCF
 from apinhn import ApiNHN
 
 nhn_zone_name = config.NHN_ZONE_NAME
 cf_zone_name = config.CF_ZONE_NAME
 
 nhn = ApiNHN()
-cf = ApiDF()
+cf = ApiCF()
 
 nhn_list = nhn.recordlist(nhn_zone_name)
 

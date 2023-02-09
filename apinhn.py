@@ -21,25 +21,32 @@ class ApiNHN:
             raise Exception('api를 가져올 수 없습니다.')
 
     def recordlist(self, zone):
-        query = {'limit': '3000'}  # 버그의 원인이 될지도?
-        zone_row_result = requests.get(config.NHN_RECORD.format(config.NHN_APIKEY, self.zoneInfo[zone]),
-                                       headers=config.HEADER,
-                                       params=query)
-        zone_row_dict = json.loads(zone_row_result.text)
-
-        result = zone_row_dict['recordsetList']
-
+        query = {'limit': '50'}
+        cnt = 1
         dto_list = []
+        while True:
+            query['page'] = cnt
+            zone_row_result = requests.get(config.NHN_RECORD.format(config.NHN_APIKEY, self.zoneInfo[zone]),
+                                           headers=config.HEADER,
+                                           params=query)
+            zone_row_dict = json.loads(zone_row_result.text)
 
-        for i in result:
-            replace = i['recordsetName'].split(".")
-            zone_cnt = len(config.NHN_ZONE_NAME.split("."))
+            result = zone_row_dict['recordsetList']
 
-            name = ".".join(replace[:-zone_cnt])
-            if len(name) != 0:
-                dto_list.append(Record(type=i['recordsetType'],
-                                       name=name,
-                                       content=i['recordList'][0]['recordContent'],
-                                       ttl=i['recordsetTtl']
-                                       ))
+            if len(result) == 0:
+                break
+
+            for i in result:
+                replace = i['recordsetName'].split(".")
+                zone_cnt = len(config.NHN_ZONE_NAME.split("."))
+
+                name = ".".join(replace[:-zone_cnt])
+                if len(name) != 0:
+                    dto_list.append(Record(type=i['recordsetType'],
+                                           name=name,
+                                           content=i['recordList'][0]['recordContent'],
+                                           ttl=i['recordsetTtl']
+                                           ))
+            cnt = cnt + 1
+
         return dto_list
