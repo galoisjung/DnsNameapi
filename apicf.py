@@ -21,7 +21,7 @@ class ApiCF:
             raise Exception('api를 가져올 수 없습니다.')
 
     def recordlist(self, zone):
-        query = {'per_page': '50'}
+        query = {'per_page': '5000'}
         cnt = 1
         dto_list = []
 

@@ -21,7 +21,7 @@ class ApiNHN:
             raise Exception('api를 가져올 수 없습니다.')
 
     def recordlist(self, zone):
-        query = {'limit': '50'}
+        query = {'limit': '3000'}
         cnt = 1
         dto_list = []
         while True:
