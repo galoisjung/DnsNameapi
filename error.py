@@ -1,0 +1,2 @@
+class OverFlowerException(Exception):
+    pass

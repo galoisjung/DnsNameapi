@@ -38,7 +38,7 @@ class ApiCF:
 
             for i in result:
                 replace = i['name'].split(".")
-                zone_cnt = len(config.CF_ZONE_NAME.split("."))  # nhn은 .하나 더 붙어서 -1 제거해준다.
+                zone_cnt = len(config.CF_ZONE_NAME.split("."))
 
                 name = ".".join(replace[:-zone_cnt])
                 if len(name) != 0:
@@ -65,10 +65,9 @@ class ApiCF:
         res_dict = json.loads(res.text)
 
         if not res_dict['success'] and res_dict['errors'][0]['code'] == 81045:
-            raise Exception("Full of record")
+            raise OverflowError()
 
         print(res.text)
-
 
     def updaterecord(self, zone, record, id):
         data = {
@@ -78,9 +77,8 @@ class ApiCF:
             'ttl': record.ttl
         }
         res = requests.put(config.CF_RECORD.format(self.zoneInfo[zone], id), headers=config.CF_HEADER,
-                       data=json.dumps(data))
+                           data=json.dumps(data))
         print(res.text)
-
 
     def deleterecord(self, zone, id):
         res = requests.delete(config.CF_RECORD.format(self.zoneInfo[zone], id), headers=config.CF_HEADER)
