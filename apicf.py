@@ -67,7 +67,6 @@ class ApiCF:
         if not res_dict['success'] and res_dict['errors'][0]['code'] == 81045:
             raise OverflowError()
 
-        print(res.text)
 
     def updaterecord(self, zone, record, id):
         data = {
@@ -78,9 +77,7 @@ class ApiCF:
         }
         res = requests.put(config.CF_RECORD.format(self.zoneInfo[zone], id), headers=config.CF_HEADER,
                            data=json.dumps(data))
-        print(res.text)
 
     def deleterecord(self, zone, id):
         res = requests.delete(config.CF_RECORD.format(self.zoneInfo[zone], id), headers=config.CF_HEADER)
 
-        print(res.text)

@@ -46,7 +46,6 @@ while len(nhn_hash_dict.keys()) != 0:
     try:
         updateprocess(temp, df_hash_dict)
     except OverflowError:
-        print("going")
         add_dict[temp[0]] = temp[1]
 
 while len(df_hash_dict.keys()) != 0:
@@ -54,6 +53,5 @@ while len(df_hash_dict.keys()) != 0:
     cf.deleterecord(cf_zone_name, temp[1][1])
 
 while len(add_dict.keys()) != 0:
-    print("test")
     temp = add_dict.popitem()
     updateprocess(temp, df_hash_dict)
